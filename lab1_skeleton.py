@@ -3,6 +3,7 @@
 #https://docs.opencv.org/4.5.3/dd/d43/tutorial_py_video_display.html "Playing Video from file "
 
 # rupayan.mallick@labri.fr deadline: 05/10/2022 18:00
+# LASTNAME_Firstname_LabX_DLCV.tar.bz2
 
 from __future__ import print_function
 
@@ -14,23 +15,22 @@ import matplotlib.pyplot as plt
 
 
 def computeMSE(prev, curr):
-    mse = 0
-    #TODO
+    mse = 1/np.product(prev.shape) * np.sum(np.square(prev.astype(np.int32) - curr.astype(np.int32)))
     return mse
     
 def computePSNR(mse):
-    psnr = 0
-    #TODO
+    psnr = 10 * np.log10(255**2 / mse)
     return psnr
 
 def computeEntropy(img):
-    ent = 0
-    #TODO
+    obj = np.asarray(img, dtype=object)
+    p = np.histogram(obj)
+    ent = -1 * np.sum(p * np.log2(p))
+    print(ent)
     return ent
     
 def computeErrorImage(im1, im2):
-    res = im1
-    #TODO
+    res = np.clip(im1 - im2 + 128, 0, 255)
     return res
 
 
